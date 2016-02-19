@@ -6,7 +6,7 @@ class PhoneNumber
   end
 
   def number
-    clean_number
+    cleanup_number
     valid_number? ? @number : BAD_NUMBER
   end
 
@@ -26,7 +26,7 @@ class PhoneNumber
     true
   end
 
-  def clean_number
+  def cleanup_number
     return BAD_NUMBER unless /[[:alpha:]]/.match(@number).nil?
     @number = @number.each_char.select { |c| /[0123456789]/.match(c) }.join
     @number = @number.slice!(1..10) if @number.length == 11 && @number.start_with?("1")
