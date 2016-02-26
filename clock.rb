@@ -14,19 +14,6 @@ class Clock
     Clock.new(hr_, min_)
   end
 
-  def change_time(delta_minutes)
-    total_mins = (hr * 60) + min + delta_minutes
-    hours_and_mins = total_mins.divmod(60)
-    @min = hours_and_mins[1]
-    if hours_and_mins[0] <= 0 
-      @hr = 24 + hours_and_mins[0] 
-    elsif hours_and_mins[0] >= 24
-      @hr = hours_and_mins[0].modulo(24)
-    else
-      @hr = hours_and_mins[0]
-    end
-  end
-
   def +(add_mins)
     change_time(add_mins)
     self
@@ -45,5 +32,20 @@ class Clock
     minutes = min < 10 ? "0" + min.to_s : min.to_s
     hours = hr < 10 ? "0" + hr.to_s : hr.to_s
     hours + ":" + minutes
+  end
+
+  private
+
+  def change_time(delta_minutes)
+    total_mins = (hr * 60) + min + delta_minutes
+    hours_and_mins = total_mins.divmod(60)
+    @min = hours_and_mins[1]
+    if hours_and_mins[0] <= 0
+      @hr = 24 + hours_and_mins[0]
+    elsif hours_and_mins[0] >= 24
+      @hr = hours_and_mins[0].modulo(24)
+    else
+      @hr = hours_and_mins[0]
+    end
   end
 end
