@@ -1,4 +1,6 @@
-require "pry"
+# Gigi Wolff
+# Clock challenge
+# https://github.com/gigi-wolff/challenges/blob/master/clock.rb
 
 class Clock
   attr_accessor :hr, :min
