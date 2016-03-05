@@ -1,17 +1,13 @@
-require 'pry'
-require 'benchmark'
-require 'minitest/autorun'
-
 module MinAndMax
-  attr_accessor :value, :factors_of_value
+  attr_accessor :value, :factors_
 
   def initialize
     @value = 0
-    @factors_of_value = []
+    @factors_ = []
   end
 
   def factors
-    factors_of_value
+    factors_
   end
 end
 
@@ -24,15 +20,15 @@ class Smallest
 end
 
 class Palindromes
-  attr_reader :max_factor, :min_factor, :palindrome_hash
+  attr_reader :max_factor, :min_factor, :palindromes_factors
 
-  def initialize(factor_hash)
-    @max_factor = factor_hash[:max_factor]
-    @min_factor = factor_hash[:min_factor] ? factor_hash[:min_factor] : 1
-    @palindrome_hash = {}
+  def initialize(min_max_factors)
+    @max_factor = min_max_factors[:max_factor]
+    @min_factor = min_max_factors[:min_factor] ? min_max_factors[:min_factor] : 1
+    @palindromes_factors = {}
   end
 
-  def palindrome(num)
+  def palindrome?(num)
     num.to_s == num.to_s.reverse
   end
 
@@ -41,8 +37,9 @@ class Palindromes
     while i <= max_factor
       j = i
       while j <= max_factor
+        # palindrome_factors is {[factors]=>product}
         product = i * j
-        palindrome_hash[[i, j]] = i * j if palindrome(product)
+        palindromes_factors[[i, j]] = product if palindrome?(product)
         j += 1
       end
       i += 1
@@ -51,15 +48,15 @@ class Palindromes
 
   def smallest
     smallest = Smallest.new
-    smallest.value = palindrome_hash.values.min
-    smallest.factors_of_value = palindrome_hash.select { |_k, v| v == smallest.value }.keys
+    smallest.value = palindromes_factors.values.min
+    smallest.factors_ = palindromes_factors.select { |_k, v| v == smallest.value }.keys
     smallest
   end
 
   def largest
     largest = Largest.new
-    largest.value = palindrome_hash.values.max
-    largest.factors_of_value = palindrome_hash.select { |_k, v| v == largest.value }.keys
+    largest.value = palindromes_factors.values.max
+    largest.factors_ = palindromes_factors.select { |_k, v| v == largest.value }.keys
     largest
   end
 end
