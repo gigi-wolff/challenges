@@ -33,12 +33,7 @@ class Palindromes
   end
 
   def palindrome(num)
-    num_str = num.to_s
-    idx = 0
-    while idx < num_str.size / 2
-      num_str[idx] == num_str[num_str.size - idx - 1] ? idx += 1 : (return false)
-    end
-    return true
+    num.to_s == num.to_s.reverse
   end
 
   def generate
