@@ -1,4 +1,6 @@
 require 'pry'
+require 'benchmark'
+require 'minitest/autorun'
 
 module MinAndMax
   attr_accessor :value, :factors_of_value
@@ -10,12 +12,6 @@ module MinAndMax
 
   def factors
     factors_of_value
-  end
-
-  def to_s
-    value_str = value.to_s
-    idx = value_str.size / 2
-    value_str.size > 4 ? value_str.insert(idx, '_') : value_str
   end
 end
 
