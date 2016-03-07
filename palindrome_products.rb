@@ -1,26 +1,8 @@
-module MinAndMax
-  attr_accessor :value, :factors_
-
-  def initialize
-    @value = 0
-    @factors_ = []
-  end
-
-  def factors
-    factors_
-  end
-end
-
-class Largest
-  include MinAndMax
-end
-
-class Smallest
-  include MinAndMax
-end
-
 class Palindromes
   attr_reader :max_factor, :min_factor, :palindromes_factors
+
+  Largest = Struct.new(:value, :factors)
+  Smallest = Struct.new(:value, :factors)
 
   def initialize(min_max_factors)
     @max_factor = min_max_factors[:max_factor]
@@ -47,16 +29,14 @@ class Palindromes
   end
 
   def smallest
-    smallest = Smallest.new
-    smallest.value = palindromes_factors.values.min
-    smallest.factors_ = palindromes_factors.select { |_k, v| v == smallest.value }.keys
-    smallest
+    value = palindromes_factors.values.min
+    factors = palindromes_factors.select { |_k, v| v == value }.keys
+    Smallest.new(value, factors)
   end
 
   def largest
-    largest = Largest.new
-    largest.value = palindromes_factors.values.max
-    largest.factors_ = palindromes_factors.select { |_k, v| v == largest.value }.keys
-    largest
+    value = palindromes_factors.values.max
+    factors = palindromes_factors.select { |_k, v| v == value }.keys
+    Largest.new(value, factors)
   end
 end
