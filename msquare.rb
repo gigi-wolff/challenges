@@ -1,7 +1,6 @@
 require 'pry'
 
 class Crypto
-  attr_reader :uncoded_message, :message
 
   def initialize(uncoded_message)
     @uncoded_message = uncoded_message
@@ -42,14 +41,6 @@ class Crypto
       vertical_segment << " "
     end
     vertical_segment.rstrip!
-  end
-
-  private
-
-  def number_of_rows
-    rows = []
-    rows = (@message.length).divmod(size)
-    rows[1] == 0 ? rows[0] : rows[0]+1 
   end
 
 end
