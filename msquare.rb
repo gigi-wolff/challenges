@@ -27,12 +27,7 @@ class Crypto
   end
 
   def ciphertext
-    cipher = ""
-    segments = plaintext_segments
-    (0..size).each do |col| # loop through each column, storing results in "cipher"
-      segments.each { |segment| cipher << segment[col] unless segment[col].nil?}
-    end
-    cipher
+    normalize_ciphertext.delete(" ")
   end
 
 
